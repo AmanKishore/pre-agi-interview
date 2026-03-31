@@ -1,0 +1,21 @@
+{
+  "siteId": "  nyc-dc-099  ",
+  "submittedBy": "ACQUISITIONS@BUILD.INC",
+  "assetType": "Data Center",
+  "location": {
+    "city": "New York",
+    "state": "new york"
+  },
+  "documents": [
+    {
+      "type": " Zoning Summary ",
+      "status": " Received "
+    },
+    {
+      "type": "environmental_note",
+      "status": " received "
+    }
+  ],
+  "requestedChecks": ["Zoning", "power", "env", "power"],
+  "priority": "high"
+}
