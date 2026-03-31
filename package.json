@@ -1,0 +1,29 @@
+{
+  "name": "agentic-search-interview",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "start": "tsx src/server.ts",
+    "test": "vitest run tests/search.smoke.test.ts",
+    "test:all": "vitest run",
+    "interview:inspect": "tsx scripts/runInterviewInspect.ts",
+    "interview:task": "tsx scripts/runInterviewTask.ts",
+    "sample:queries": "tsx scripts/runSampleQueries.ts",
+    "benchmark:baseline": "tsx scripts/runSearchBenchmark.ts"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "pino": "^9.7.0",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.13.10",
+    "@types/supertest": "^6.0.3",
+    "supertest": "^7.0.0",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.2",
+    "vitest": "^3.0.8"
+  }
+}

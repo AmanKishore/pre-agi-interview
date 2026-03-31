@@ -1,84 +1,83 @@
-# Build Agent-Age Engineering Interview Kit
+# Generic Repo-Understanding Search Interview
 
-This package turns a rough point of view on hiring in the age of agents into a concrete interview loop for Build.
+This repository is a generic main technical interview for evaluating how an engineer explores an unfamiliar codebase, chooses an implementation strategy, uses multiple AI agents with good boundaries, and leaves behind useful validation and benchmarking tools.
 
-It is designed for senior-plus early-stage engineering hires and assumes Build wants engineers who can:
+## Start here
 
-- think clearly before delegating
-- use agents as force multipliers rather than substitutes for judgment
-- ship reliable systems under ambiguity
-- reason about product impact, not just implementation
-- split work in parallel and manage context without losing control
+Run:
 
-## What is in this kit
+```bash
+npm install
+npm test
+npm run interview:inspect
+```
 
-- `01-hiring-philosophy.md`: the hiring memo and bar definition
-- `02-screen-interview.md`: the first-round screen for agency, product sense, and AI working style
-- `03-live-build-candidate-prompt.md`: the flagship live build prompt with generalist and core infrastructure variants
-- `04-scorecard.md`: the anchored rubric used across the loop
-- `05-interviewer-guide.md`: pacing, observation guidance, hints policy, and failure injection rules
-- `06-debrief-form.md`: the structured writeup template for interviewers
-- `07-calibration-pack.md`: sample pass, mixed, and fail profiles for calibration
-- `08-pilot-plan.md`: rollout and recalibration plan
-- `starter-repo/`: the runnable live-build exercise with candidate and interviewer sections
+Spend the first `10 minutes` explaining:
 
-## Starter repo layout
+- how you think the repo is structured
+- which call paths or modules you want to inspect first
+- at least `2` bounded AI workstreams you want to use
+- which algorithm directions you want to compare before coding
 
-The live-build prompt now has a concrete starter implementation in `starter-repo/`.
+After that, run:
 
-- `starter-repo/candidate/`: the runnable Node/TypeScript service the candidate works in
-- `starter-repo/interviewer/`: the runbook, variant overlays, and failure-injection scripts
+```bash
+npm run interview:task
+```
 
-The starter repo is intentionally incomplete. It gives candidates a real surface area to work in without solving the interesting parts for them.
+That command prints a diagnostic report on the current search behavior and latency baseline.
 
-## Loop overview
+## What this interview is testing
 
-The recommended interview sequence is:
+We want to see whether a candidate can:
 
-1. `Screen interview`
-2. `Live build interview`
-3. `Self-healing review`
+- build a credible model of an unfamiliar repo before editing
+- use multiple agents to explore the source and compare solution strategies
+- reason about algorithm choice and latency tradeoffs, not just code generation
+- make one coherent change in the right place
+- add tests and benchmarks that improve the system over time
+- communicate tradeoffs, confidence, and remaining risks clearly
 
-The screen interview checks whether the candidate already operates like a high-agency Build engineer.
+## Repo layout
 
-The live build interview is the core assessment. It runs as:
+- `src/`: application code for the search service
+- `tests/`: baseline smoke coverage for the starting repo
+- `scripts/`: interview helper scripts, sample queries, and baseline benchmark
+- `fixtures/`: seeded catalog and benchmark query corpus
+- `docs/`: internal rubric, interviewer guide, and calibration material
 
-- `45 minutes` of hands-on work
-- `15 minutes` of debrief
+## Core workflow
 
-Candidates may use their normal editor, AI tools, docs, and internet access. The interview does not try to remove leverage. It measures how they use leverage.
+The main commands are:
 
-The self-healing review can be folded into the debrief for faster loops or run as a separate discussion in later-stage hiring.
+```bash
+npm install
+npm test
+npm run interview:inspect
+npm run interview:task
+```
 
-## How to use this kit
+Useful optional commands:
 
-1. Choose a role variant:
-   - `Generalist`
-   - `Core Infrastructure`
-2. Give the candidate the scaffold from `starter-repo/candidate/`.
-3. Run the session with `05-interviewer-guide.md` and `starter-repo/interviewer/README.md` open.
-4. Use the role overlay in `starter-repo/interviewer/variant-generalist.md` or `starter-repo/interviewer/variant-core-infra.md`.
-5. Score the interview live using `04-scorecard.md`.
-6. Write the decision memo from `06-debrief-form.md`.
-7. Recalibrate against `07-calibration-pack.md` before the process goes live.
+```bash
+npm run sample:queries
+npm run benchmark:baseline
+npm run dev
+```
 
-## Design principles behind the loop
+## Final interview expectation
 
-- Do not reward raw code volume.
-- Do not reward polished AI output without ownership.
-- Do reward decomposition, validation, recovery, and judgment.
-- Do reward engineers who build confidence through evidence.
-- Do reward engineers who lower future operational pain.
+The built-in scripts are not the proof of completion.
+`npm run interview:task` is intentionally diagnostic rather than a hidden acceptance gate.
 
-## What this kit intentionally avoids
+A strong candidate also leaves behind:
 
-- LeetCode-style puzzle rounds
-- toy systems questions with no product context
-- interview formats where candidates are punished for using modern tools
-- interview rubrics that confuse fast typing with strong engineering
+- at least one correctness test they author and would keep using
+- a benchmark or profiling workflow they create or upgrade to self-heal and optimize the search path later
+- a clear explanation of the algorithm they chose, what they rejected, and why
 
-## Recommended operating cadence
+## Internal docs
 
-- Pilot with `3-5` internal engineers before using the loop externally.
-- Review outcomes after the first `5` real candidates.
-- Revisit the exercise and rubric every quarter or after a meaningful change in agent capabilities.
+The repo also contains internal interview docs under `docs/`.
+
+Those docs are versioned alongside the exercise to keep the repo coherent, but the interview is not designed to depend on hiding them. The signal comes from repo understanding, bounded agent use, algorithm judgment, safe integration, and useful validation.

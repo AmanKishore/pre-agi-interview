@@ -1,0 +1,86 @@
+[
+  {
+    "id": "cloud-gpu-hosting",
+    "title": "Cloud GPU Hosting",
+    "aliases": ["GPU Cloud", "Managed GPU Clusters"],
+    "tags": ["compute", "gpu", "ml"],
+    "popularity": 97
+  },
+  {
+    "id": "incident-runbook-template",
+    "title": "Incident Runbook Template",
+    "aliases": ["On-call Playbook", "Incident Guide"],
+    "tags": ["operations", "reliability", "runbook"],
+    "popularity": 91
+  },
+  {
+    "id": "cache-warmup-orchestrator",
+    "title": "Cache Warmup Orchestrator",
+    "aliases": ["Redis Warmup", "Cache Preloader"],
+    "tags": ["performance", "cache", "redis"],
+    "popularity": 84
+  },
+  {
+    "id": "postgres-backup-automation",
+    "title": "Postgres Backup Automation",
+    "aliases": ["DB Backup Scheduler", "Database Snapshots"],
+    "tags": ["database", "postgres", "backup"],
+    "popularity": 83
+  },
+  {
+    "id": "vector-search-indexing-guide",
+    "title": "Vector Search Indexing Guide",
+    "aliases": ["ANN Index Guide", "Semantic Search Docs"],
+    "tags": ["search", "vector", "retrieval"],
+    "popularity": 79
+  },
+  {
+    "id": "low-latency-event-streaming",
+    "title": "Low Latency Event Streaming",
+    "aliases": ["Streaming Pipeline", "Kafka Throughput"],
+    "tags": ["streaming", "latency", "events"],
+    "popularity": 77
+  },
+  {
+    "id": "feature-flag-control-plane",
+    "title": "Feature Flag Control Plane",
+    "aliases": ["Release Toggle Service", "Flag Manager"],
+    "tags": ["release", "configuration", "platform"],
+    "popularity": 76
+  },
+  {
+    "id": "api-rate-limit-monitor",
+    "title": "API Rate Limit Monitor",
+    "aliases": ["Throttle Dashboard", "Quota Watch"],
+    "tags": ["api", "traffic", "observability"],
+    "popularity": 75
+  },
+  {
+    "id": "realtime-fraud-detection",
+    "title": "Realtime Fraud Detection",
+    "aliases": ["Fraud Stream Scoring", "Risk Event Detector"],
+    "tags": ["risk", "realtime", "ml"],
+    "popularity": 74
+  },
+  {
+    "id": "knowledge-base-search",
+    "title": "Knowledge Base Search",
+    "aliases": ["Docs Finder", "Help Center Search"],
+    "tags": ["search", "docs", "support"],
+    "popularity": 72
+  },
+  {
+    "id": "billing-reconciliation-worker",
+    "title": "Billing Reconciliation Worker",
+    "aliases": ["Invoice Matcher", "Payment Audit Job"],
+    "tags": ["finance", "billing", "jobs"],
+    "popularity": 71
+  },
+  {
+    "id": "search-result-cache",
+    "title": "Search Result Cache",
+    "aliases": ["Autocomplete Redis Cache", "Suggestion Cache"],
+    "tags": ["search", "cache", "latency"],
+    "popularity": 69
+  }
+]
