@@ -14,8 +14,13 @@ The candidate should only receive the scaffold in `../candidate/`.
 
 ```bash
 npm install
+npm test
 npm run dev
 ```
+
+The candidate service defaults to `http://localhost:3100`.
+
+If port `3100` is unavailable, start the service with a different port and pass the matching `BASE_URL` to the helper scripts.
 
 4. In another terminal, validate the baseline:
 
@@ -33,7 +38,7 @@ npm run dev
 
 Use the deterministic timeout path once the candidate has made some initial progress, ideally between minute `18` and minute `28`.
 
-With the candidate server running on `http://localhost:3000`, trigger:
+With the candidate server running on `http://localhost:3100`, trigger:
 
 ```bash
 ./scripts/trigger-timeout.sh
@@ -47,8 +52,8 @@ That script calls `POST /v1/diligence/runs` with:
 The starter implementation will:
 
 - log the timeout
-- return a weak partial result
-- leave plenty of room for the candidate to improve operator visibility and recovery behavior
+- return a coarse failed result
+- leave plenty of room for the candidate to improve operator visibility, task states, and recovery behavior
 
 ## What to listen for
 
@@ -58,10 +63,17 @@ The starter implementation will:
 - do they create targeted confidence through tests, logs, or controlled failure cases?
 - do they re-scope cleanly after the timeout shows up?
 
+## What better than the starter looks like
+
+- timeout behavior is represented more explicitly than a generic failed task
+- the response makes partial progress legible instead of collapsing everything into a blunt failure
+- messy-input warnings are clearer and tied to specific ambiguity
+- the summary becomes easier for an operator or reviewer to trust quickly
+
 ## Baseline weaknesses by design
 
 - normalization handles only limited aliases
-- timeout handling is visible but not production-grade
+- timeout handling is visible but intentionally coarse
 - there are no retries or backpressure controls
 - warnings are intentionally thin
 - task-state detail is intentionally coarse

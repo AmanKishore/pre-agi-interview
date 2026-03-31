@@ -4,7 +4,7 @@
   "assetType": "Data Center",
   "location": {
     "city": "New York",
-    "state": "new york"
+    "state": "N.Y."
   },
   "documents": [
     {
@@ -12,10 +12,14 @@
       "status": " Received "
     },
     {
+      "type": "zoning-summary",
+      "status": "missing"
+    },
+    {
       "type": "environmental_note",
-      "status": " received "
+      "status": "received"
     }
   ],
-  "requestedChecks": ["Zoning", "power", "env", "power"],
+  "requestedChecks": ["Zoning", "power", "flood-risk", "power"],
   "priority": "high"
 }

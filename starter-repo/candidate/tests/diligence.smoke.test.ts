@@ -1,4 +1,5 @@
 import request from "supertest";
+import { describe, expect, it } from "vitest";
 import happyPacket from "../fixtures/site-packet.happy.json";
 import { createApp } from "../src/server.js";
 

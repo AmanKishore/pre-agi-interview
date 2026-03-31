@@ -13,6 +13,7 @@ Before the session:
 - choose the `Generalist` or `Core Infrastructure` variant
 - prepare the scaffold in `starter-repo/candidate/`
 - choose the overlay in `starter-repo/interviewer/variant-generalist.md` or `starter-repo/interviewer/variant-core-infra.md`
+- run `npm test` in `starter-repo/candidate/`
 - verify the baseline using `starter-repo/interviewer/scripts/run-happy-path.sh`
 - have `04-scorecard.md` open during the interview
 
@@ -142,7 +143,7 @@ You are not testing whether the candidate predicts the exact failure. You are te
 - whether they degrade gracefully
 - whether they re-scope without panicking
 
-The baseline repo already logs the timeout and returns a weak but visible partial result. The candidate should still have meaningful room to improve task state handling, warnings, and operator clarity.
+The baseline repo already logs the timeout and returns a coarse failed result. The candidate should still have meaningful room to improve task state handling, warnings, partial-progress visibility, and operator clarity.
 
 ## What not to overweight
 
@@ -163,6 +164,7 @@ Pay closer attention to:
 - output usability
 - prioritization under ambiguity
 - ability to simplify for human consumers
+- quality of decisions around messy or unsupported input
 
 ### Core Infrastructure
 
@@ -172,6 +174,7 @@ Pay closer attention to:
 - retries and idempotency
 - backpressure or concurrency handling
 - operator trust and observability
+- whether they move beyond the starter's generic failure semantics
 
 ## Decision guidance
 

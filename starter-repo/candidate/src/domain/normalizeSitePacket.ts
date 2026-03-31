@@ -35,24 +35,31 @@ export function normalizeSitePacket(input: SitePacketInput): {
     .replace(/[_\s]+/g, "-");
 
   const stateKey = input.location.state.trim().toLowerCase();
-  const state = stateAliases[stateKey] ?? input.location.state.trim().slice(0, 2).toUpperCase();
+  const fallbackState =
+    input.location.state
+      .trim()
+      .replace(/[^a-z]/gi, "")
+      .slice(0, 2)
+      .toUpperCase() || input.location.state.trim().slice(0, 2).toUpperCase();
+  const state = stateAliases[stateKey] ?? fallbackState;
 
   if (!(stateKey in stateAliases) && input.location.state.trim().length > 2) {
     warnings.push("State normalization uses a starter fallback. Expand alias coverage.");
+  }
+
+  const unknownRequestedChecks = input.requestedChecks
+    .map((value) => value.trim())
+    .filter((value) => !(value.toLowerCase() in requestedCheckAliases));
+
+  if (unknownRequestedChecks.length > 0) {
+    warnings.push(`Unsupported requested checks were ignored: ${Array.from(new Set(unknownRequestedChecks)).join(", ")}.`);
   }
 
   const requestedChecks = Array.from(
     new Set(
       input.requestedChecks
         .map((value) => requestedCheckAliases[value.trim().toLowerCase()])
-        .filter((value): value is AnalysisTaskName => {
-          if (value) {
-            return true;
-          }
-
-          warnings.push("One or more requested checks were ignored during starter normalization.");
-          return false;
-        })
+        .filter((value): value is AnalysisTaskName => Boolean(value))
     )
   );
 
@@ -60,6 +67,24 @@ export function normalizeSitePacket(input: SitePacketInput): {
     type: document.type.trim().toLowerCase().replace(/[_\s]+/g, "-"),
     status: document.status.trim().toLowerCase()
   }));
+
+  const documentStatusesByType = new Map<string, Set<string>>();
+
+  for (const document of documents) {
+    const knownStatuses = documentStatusesByType.get(document.type) ?? new Set<string>();
+    knownStatuses.add(document.status);
+    documentStatusesByType.set(document.type, knownStatuses);
+  }
+
+  const conflictingDocumentTypes = Array.from(documentStatusesByType.entries())
+    .filter(([, statuses]) => statuses.size > 1)
+    .map(([type]) => type);
+
+  if (conflictingDocumentTypes.length > 0) {
+    warnings.push(
+      `Conflicting document statuses were preserved for: ${conflictingDocumentTypes.join(", ")}. Resolve document precedence explicitly.`
+    );
+  }
 
   if (documents.length === 0) {
     warnings.push("Starter normalization accepted an empty document list.");

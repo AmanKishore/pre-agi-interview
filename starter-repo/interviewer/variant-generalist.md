@@ -13,6 +13,8 @@ Use this overlay for product-oriented early-stage engineers.
 
 "Return a concise summary object that a downstream UI could render for a human reviewer."
 
+"The returned summary should be understandable to a human reviewer, not only to another engineer."
+
 ## What strong candidates often do
 
 - improve the response shape for readability

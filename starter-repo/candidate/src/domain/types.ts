@@ -4,8 +4,8 @@ export const analysisTaskNames = ["zoning", "power", "environmental"] as const;
 
 export type AnalysisTaskName = (typeof analysisTaskNames)[number];
 
-export type TaskStatus = "completed" | "failed" | "timed_out" | "skipped";
-export type OverallStatus = "completed" | "partial" | "failed";
+export type TaskStatus = "completed" | "failed" | "skipped";
+export type OverallStatus = "completed" | "failed";
 export type FailureMode = "power_timeout";
 
 export const sitePacketInputSchema = z.object({

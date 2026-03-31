@@ -91,12 +91,14 @@ The repo should be small enough to orient in under five minutes.
 The starter repo should be runnable with:
 
 - `npm install`
-- `npm run dev`
 - `npm test`
+- `npm run dev`
 - `npm run sample:happy`
 - `npm run sample:messy`
 
 The candidate should primarily work inside the provided service scaffold rather than building the entire exercise from zero.
+
+The default starter service should run on `http://localhost:3100`.
 
 ## Example site packet shape
 
@@ -141,6 +143,8 @@ During the session, the interviewer will introduce one failure. Examples:
 
 In the default starter repo, the interviewer should use a deterministic timeout path so the failure is consistent across sessions.
 
+The starter repo should surface that timeout in a deliberately coarse way. Part of the exercise is deciding how to make failure states, partial progress, and operator clarity more trustworthy.
+
 The goal is not to trick you. The goal is to see how you recover, rescope, and preserve system clarity under stress.
 
 ## What we care about more than polish
@@ -149,6 +153,7 @@ The goal is not to trick you. The goal is to see how you recover, rescope, and p
 - whether you use agents intentionally
 - whether you notice dangerous gaps
 - whether you build confidence instead of just output
+- whether you make sensible decisions about ambiguous input
 - whether you can leave the system in a state a teammate would trust
 
 ## Variant: Generalist
@@ -165,6 +170,8 @@ Emphasize:
 Suggested extra requirement:
 
 "Return a concise summary object that a downstream UI could render for a human reviewer."
+
+"The returned summary should be understandable to a human reviewer, not only to another engineer."
 
 Signals to watch:
 

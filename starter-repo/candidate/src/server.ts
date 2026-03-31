@@ -29,7 +29,7 @@ const currentFilePath = fileURLToPath(import.meta.url);
 const entryPath = process.argv[1] ? path.resolve(process.argv[1]) : "";
 
 if (entryPath === currentFilePath) {
-  const port = Number(process.env.PORT ?? 3000);
+  const port = Number(process.env.PORT ?? 3100);
 
   app.listen(port, () => {
     logger.info({ port }, "starter diligence service listening");

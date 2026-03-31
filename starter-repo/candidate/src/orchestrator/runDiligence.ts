@@ -64,24 +64,21 @@ export async function runDiligence(
             "starter analyzer timed out"
           );
 
-          warnings.push(`${taskName} exceeded the starter timeout budget.`);
-
           return {
             name: taskName,
-            status: "timed_out",
-            detail: "Analyzer timed out. Starter path leaves recovery behavior intentionally thin.",
+            status: "failed",
+            detail: "Analyzer failed in the starter path. Improve recovery and operator-facing state.",
             durationMs,
             output: null
           } satisfies DiligenceTaskSummary;
         }
 
         logger.error({ err: error, taskName, durationMs }, "starter analyzer failed");
-        warnings.push(`${taskName} failed in the starter path.`);
 
         return {
           name: taskName,
           status: "failed",
-          detail: "Analyzer failed. Improve recovery, warnings, and operator clarity.",
+          detail: "Analyzer failed in the starter path. Improve recovery and operator-facing state.",
           durationMs,
           output: null
         } satisfies DiligenceTaskSummary;
@@ -89,8 +86,12 @@ export async function runDiligence(
     })
   );
 
-  // TODO(interview): revisit how partial success should be surfaced to operators.
-  // TODO(interview): consider retries, backpressure, and richer task-state metadata.
+  if (tasks.some((task) => task.status === "failed")) {
+    warnings.push("One or more diligence tasks failed in the starter path.");
+  }
+
+  // TODO(interview): introduce clearer task states for timeouts and partial completion.
+  // TODO(interview): consider retries, backpressure, and richer operator-facing metadata.
 
   return {
     runId: createRunId(),
@@ -114,17 +115,9 @@ function createSkippedTask(taskName: AnalysisTaskName): DiligenceTaskSummary {
 
 function deriveOverallStatus(tasks: DiligenceTaskSummary[]): OverallStatus {
   const requestedTasks = tasks.filter((task) => task.status !== "skipped");
-  const completedTasks = requestedTasks.filter((task) => task.status === "completed");
-
-  if (requestedTasks.length > 0 && completedTasks.length === requestedTasks.length) {
-    return "completed";
-  }
-
-  if (completedTasks.length > 0) {
-    return "partial";
-  }
-
-  return "failed";
+  return requestedTasks.length > 0 && requestedTasks.every((task) => task.status === "completed")
+    ? "completed"
+    : "failed";
 }
 
 function createRunId(): string {
